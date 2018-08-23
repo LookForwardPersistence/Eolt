@@ -536,7 +536,8 @@ async function requestId() {
        //移动端
        app.tpConnected=tp.isConnected();
           if(app.tpConnected){
-              await tp.getCurrentWallet("eos").then(data => {
+              alert("dddd")
+              await tp.getCurrentWallet("eos").then(function (data) {
                   alert(JSON.parse(data))
                   if(data.result){
                       app.tpAccount = data.data;
@@ -545,9 +546,7 @@ async function requestId() {
                       app.notification("error",data.msg);
                   }
 
-           }).catch(err =>{
-               alert(JSON.parse(err))
-              });
+           })
             /*  await tp.getWalletList("eos").then(function (data) {
                   app.tpAccount = data.wallets.eos[0]
                   app.tpBalance();
