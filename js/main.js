@@ -538,7 +538,7 @@ async function requestId() {
           if(app.tpConnected){
               alert("dddd")
               await tp.getCurrentWallet("eos").then(function (data) {
-                  alert(JSON.parse(data))
+                  alert(JSON.stringify(data))
                   if(data.result){
                       app.tpAccount = data.data;
                       app.tpBalance();
