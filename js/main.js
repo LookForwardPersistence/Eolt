@@ -270,6 +270,7 @@ app = new Vue({
             }).then((data) => {
             if(data.result){
                 this.notification('succeeded', '兑换成功');
+                this.tpBalance();
             }else{
                 this.notification('error', '兑换失败',"");
             }
@@ -314,6 +315,7 @@ app = new Vue({
                 }).then(() => {
                     play_se("se_withdraw");
                 this.notification('succeeded', '兑换成功');
+                this.tpBalance();
             }).catch((err) => {
                     this.notification('error', '兑换失败', err.toString());
             });
