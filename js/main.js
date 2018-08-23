@@ -536,7 +536,7 @@ async function requestId() {
        //移动端
        app.tpConnected=tp.isConnected();
           if(app.tpConnected){
-              await tp.getCurrentWallet().then(data => {
+              await tp.getCurrentWallet("eos").then(data => {
                   alert(JSON.parse(data))
                   if(data.result){
                       app.tpAccount = data.data;
