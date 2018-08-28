@@ -10,7 +10,9 @@ app = new Vue({
         requiredFields: null,
         eos: null,
         account: null,
-        user_eos_balance: null,
+        user_eos_balance: 0,
+        last_bet: null,
+        bet_result: null,
         user_score_balance: null,
         round_info: '准备',
         user_info: null,
@@ -25,14 +27,16 @@ app = new Vue({
         count: 28,    //总共有多少个位置
         speed: 20,    //初始转动速度
         cycle: 20,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
-        timer: 0,    //setTimeout的ID，用clearTimeout清除
+        timer: 0, //setTimeout的ID，用clearTimeout清除
+        result_timer: 0, // get_roll_result timeout.
         times: 0,
         prize: -1,    //中奖位置
         running: false, // 正在抽奖
         tpConnected:false,
         tpFlag:"",
         tpAccount:'',
-        betValue: ''
+        betValue: '',
+        eop: 1, // 经营状况系数
     },
     created: function () {
     },
@@ -336,6 +340,7 @@ app = new Vue({
                 scatter.getIdentity({ accounts: [{ chainId: network.chainId, blockchain: network.blockchain }] })
                     .then(identity => {
                         this.setIdentity(identity);
+
                     })
                     .catch(err => {
                         this.notification('error', 'Scatter初始化失败', err.toString());
@@ -401,6 +406,11 @@ app = new Vue({
             return num;
         },
         start_roll: function () {
+            if(!this.bet_input||this.bet_input<=0){
+                this.notification('error', '异常', "Bet不能小于等于0");
+                alert("Bet不能小于等于0")
+                    return;
+            }
             play_se("se_click");
             if (this.running) return;
             if(isPc()){
@@ -412,10 +422,21 @@ app = new Vue({
 
             var amount = this.bet_input;
             if (this.bet_input == "") {
-                amount = 1000;
+                amount = 1.000;
             }
             if(isPc()){
-                var requiredFields = this.requiredFields;
+                this.eos.transfer(this.account.name, "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
+                    .then(() => {
+                    play_se("se_startrolling");
+                this.running = true;
+                this.last_bet = amount;
+                this.roll_loop();
+                this.get_roll_result();
+            })
+            .catch((err) => {
+                    alert(err.toString());
+            });
+             /*   var requiredFields = this.requiredFields;
             this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
                 contract.bet(this.account.name, parseInt(amount * 10000), this.createHexRandom(),
                     { authorization: [`${this.account.name}@${this.account.authority}`] })
@@ -431,12 +452,29 @@ app = new Vue({
             }).then(() => {
                 }).catch((err) => {
                     this.notification('error', '异常', err.toString());
-                });
+                });*/
             }else
             {
                 // alert("帐号："+ JSON.stringify(this.tpAccount))
                 //移动端
-                tp.pushEosAction({
+                tp.eosTokenTransfer({
+                    from: this.tpAccount.name,
+                    to: 'happyeosslot',
+                    amount: amount,
+                    tokenName: 'EOS',
+                    precision: 4,
+                    contract: 'eosio.token',
+                    memo: 'bet'+ this.createHexRandom(),
+                    address: this.tpAccount.address
+                }).then((data) =>{
+                   alert(JSON.stringify(data))
+                play_se("se_startrolling");
+                this.running = true;
+                this.last_bet = amount;
+                this.roll_loop();
+                this.get_roll_result();
+                })
+                /*tp.pushEosAction({
                     actions: [
                         {
                             account: 'happyeosslot',//合约
@@ -461,7 +499,7 @@ app = new Vue({
                 this.roll_loop();
             }).catch((err) => {
                 this.notification('error', '异常', err.toString());
-            })
+            })*/
             }
         },
         roll_loop: function () {
@@ -510,10 +548,74 @@ app = new Vue({
             }
         },
         stop_at: function (stop_position) {
-            if (this.prize == -1) {
+           /* if (this.prize == -1) {
                 this.prize = stop_position
+            }*/
+
+            if (this.prize == -1) {
+                clearTimeout(this.result_timer);
+                this.prize = stop_position;
+                this.get_current_balance();
             }
         },
+        getEosBalance:function () {
+            tp.getEosBalance({
+                account: this.tpAccount.name,
+                contract: 'eosio.token',
+                tokenName: 'EOS'
+            }).then((data)=>{
+              this.user_credits = this.data.data.balance()
+            })
+        },
+        get_roll_result:function () {
+            tp.getTableRows({
+                json: "true",
+                code: "happyeosslot",
+                scope: this.account.name,
+                limit: 10,
+                table: 'result'
+                // lower_bound: '10',
+                limit: 1000
+            }).then((data) = > {
+                var result = data.rows[0].roll_number;
+            this.bet_result = result;
+
+            var rate_100 = 25;
+            var rate_50 = new Array(11, 24);
+            var rate_20 = new Array(6, 16, 21);
+            var rate_10 = new Array(1, 10, 26);
+            var rate_5 = new Array(3, 13, 18, 22);
+            var rate_2 = new Array(2, 8, 17, 28);
+            var rate_0_1 = new Array(5, 9, 12, 14, 19);
+            var rate_0_0_1 = new Array(4, 7, 15, 20, 23, 27);
+
+            if (this.running) {
+                var random = Math.random();
+                // console.log(random);
+                if (result >= 10000) {
+                    this.stop_at(rate_100);
+                } else if (result >= 5000) {
+                    this.stop_at(rate_50[Math.floor(random) * 2]);
+                } else if (result >= 2000) {
+                    this.stop_at(rate_20[Math.floor(random * 3)]);
+                } else if (result >= 1000) {
+                    this.stop_at(rate_10[Math.floor(random * 3)]);
+                } else if (result >= 500) {
+                    this.stop_at(rate_5[Math.floor(random * 4)]);
+                } else if (result >= 200) {
+                    this.stop_at(rate_2[Math.floor(random * 4)]);
+                } else if (result >= 10) {
+                    this.stop_at(rate_0_1[Math.floor(random * 5)]);
+                } else if (result >= 1) {
+                    this.stop_at(rate_0_0_1[Math.floor(random * 6)]);
+                } else {
+                    this.result_timer = setTimeout(this.get_roll_result, 100); //循环调用
+                }
+            }
+        }).
+            catch((err) = > {
+                alert(err.toString()
+        })
     },
     computed: {
     }
@@ -540,7 +642,8 @@ async function requestId() {
               await tp.getCurrentWallet("eos").then(function (data) {
                   if(data.result){
                       app.tpAccount = data.data;
-                      app.tpBalance();
+                      // app.tpBalance();
+                      app.getEosBalance();
                   }else{
                       app.notification("error",data.msg);
                   }
