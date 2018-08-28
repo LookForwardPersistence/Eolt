@@ -425,7 +425,7 @@ app = new Vue({
                 amount = 1.000;
             }
             if(isPc()){
-                this.eos.transfer(this.account.name, "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
+               /* this.eos.transfer(this.account.name, "happyeosslot", amount + " EOS", "bet " + this.createHexRandom())
                     .then(() => {
                     play_se("se_startrolling");
                 this.running = true;
@@ -435,8 +435,8 @@ app = new Vue({
             })
             .catch((err) => {
                     alert(err.toString());
-            });
-             /*   var requiredFields = this.requiredFields;
+            });*/
+                var requiredFields = this.requiredFields;
             this.eos.contract('happyeosslot', { requiredFields }).then(contract => {
                 contract.bet(this.account.name, parseInt(amount * 10000), this.createHexRandom(),
                     { authorization: [`${this.account.name}@${this.account.authority}`] })
@@ -452,7 +452,7 @@ app = new Vue({
             }).then(() => {
                 }).catch((err) => {
                     this.notification('error', '异常', err.toString());
-                });*/
+                });
             }else
             {
                 // alert("帐号："+ JSON.stringify(this.tpAccount))
@@ -474,7 +474,8 @@ app = new Vue({
                 this.roll_loop();
                 this.get_roll_result();
                 })
-                /*tp.pushEosAction({
+
+             /*   tp.pushEosAction({
                     actions: [
                         {
                             account: 'happyeosslot',//合约
@@ -616,6 +617,7 @@ app = new Vue({
             catch((err) = > {
                 alert(err.toString()
         })
+    },
     },
     computed: {
     }
