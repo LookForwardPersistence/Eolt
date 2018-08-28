@@ -15,7 +15,7 @@ app = new Vue({
         round_info: '准备',
         user_info: null,
         user_credits: null,
-        bet_input: "100",
+        bet_input: "1.000",
         deposit_input: null,
         withdraw_input: null,
         old_bet_amount: null,
@@ -319,7 +319,6 @@ app = new Vue({
             }).catch((err) => {
                     this.notification('error', '兑换失败', err.toString());
             });
-                this.tpBalance();
             }
 
         },
@@ -546,7 +545,7 @@ async function requestId() {
                       app.notification("error",data.msg);
                   }
 
-           })
+              })
             /*  await tp.getWalletList("eos").then(function (data) {
                   app.tpAccount = data.wallets.eos[0]
                   app.tpBalance();
