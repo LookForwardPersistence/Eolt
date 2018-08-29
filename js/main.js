@@ -344,12 +344,10 @@ app = new Vue({
         },
         init_tokenpocket:function () {
             if(this.tpConnected){
-               /* tp.getWalletList("eos").then(function (data) {
-                    this.tpAccount = data.wallets.eos[0]
-                });*/
                 tp.getCurrentWallet("eos").then(function (data) {
                     if(data.result){
                         this.tpAccount = data.data;
+                        this.getEosBalance()
                     }else{
                         this.notification("error",data.msg);
                     }
@@ -507,9 +505,8 @@ app = new Vue({
                 contract: 'eosio.token',
                 symbol: 'EOS'
             }).then(function(data){
-                alert(222)
                 alert(JSON.stringify(data))
-                var balance = data.data.balance.split(' ')
+                var balance = data.data.balance[0].split(' ')
                 alert(data.data.balance)
                 this.user_eos_balance = balance[0];
                 alert("1"+this.user_eos_balance)
