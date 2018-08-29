@@ -508,7 +508,7 @@ app = new Vue({
             tp.getEosBalance({
                 account: this.tpAccount.name,
                 contract: 'eosio.token',
-                tokenName: 'EOS'
+                symbol: 'EOS'
             }).then(function(data){
                 alert(1)
                 alert(JSON.stringify(data));
