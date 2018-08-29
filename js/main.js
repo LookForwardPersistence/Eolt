@@ -55,9 +55,8 @@ app = new Vue({
                 this.bet_input = new Number(new_bet).toFixed(4);
             }
         },
-        get_current_balance: function () {
+        getEosBalance: function () {
             this.eos.getCurrencyBalance('eosio.token', this.account.name).then(x => {
-                alert(x);
                 this.user_eos_balance = x[0].split(' ', 1)[0];
         });
             this.get_current_eop();
@@ -226,7 +225,7 @@ app = new Vue({
             this.eos.transfer(this.account.name, "happyeosslot", amount + " EOS", "buy")
                 .then(() => {
                     play_se("se_buy");
-                    this.get_current_balance();
+                    this.getEosBalance();
                     alert("充值成功");
                 }).catch((err) => {
                     alert(err.toString());
@@ -245,7 +244,7 @@ app = new Vue({
             }).then((data) => {
             if (data.result) {
                 alert("充值成功：" + amount)
-                this.get_current_balance();
+                this.getEosBalance();
             } else {
                 this.notification('error', '兑换失败',"");
             }
@@ -268,7 +267,7 @@ app = new Vue({
                 })
                 .then(() => {
                         play_se("se_withdraw");
-                        this.get_current_balance();
+                        this.getEosBalance();
                     }).catch((err) => {
                         alert(err.toString());
                     });
@@ -307,7 +306,7 @@ app = new Vue({
             this.requiredFields = {
                 accounts: [network]
             };
-            this.get_current_balance();
+            this.getEosBalance();
         },
         init_scatter: function () {
             if (this.eos != null) return;
@@ -499,7 +498,7 @@ app = new Vue({
             if (this.prize == -1) {
                 clearTimeout(this.result_timer);
                 this.prize = stop_position;
-                this.get_current_balance();
+                this.getEosBalance();
             }
         },
         getEosBalance:function () {
@@ -510,6 +509,8 @@ app = new Vue({
             }).then(function(data){
                 alert(data.data.balance)
                 this.user_eos_balance = data.data.balance.split(' ', 1)[0];
+                alert("1"+this.user_eos_balance)
+                alert(data.data.balance[0].split(' ', 1)[0])
         })
         },
     },
