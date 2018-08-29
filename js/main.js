@@ -438,10 +438,10 @@ app = new Vue({
                     memo: 'bet'
                 }).then(() => {
                     play_se("se_startrolling");
-                    this.running = true;
-                    this.old_credits = this.user_credits - amount;
-                    this.old_bet_amount = amount;
-                    this.roll_loop();
+                this.running = true;
+                this.last_bet = amount;
+                this.roll_loop();
+                this.getEosBalance();
                 }).catch((err) => {
                     this.notification('error', '异常', err.toString());
                 })
@@ -506,12 +506,13 @@ app = new Vue({
                 contract: 'eosio.token',
                 symbol: 'EOS'
             }).then(function(data){
-                alert(JSON.stringify(data))
                 var balance = data.data.balance[0].split(' ')
                 thiz.user_eos_balance = balance[0];
-                alert(thiz.user_eos_balance)
         })
         },
+        getBalanceTimer:function(){
+            setTimeout(this.getEosBalance(),5000);
+        }
     },
     computed: {}
 });
