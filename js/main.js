@@ -507,8 +507,10 @@ app = new Vue({
                 contract: 'eosio.token',
                 symbol: 'EOS'
             }).then(function(data){
+                alert(JSON.stringify(data))
+                var balance = data.data.balance.split(' ', 1)
                 alert(data.data.balance)
-                this.user_eos_balance = data.data.balance.split(' ', 1)[0];
+                this.user_eos_balance = balance[0];
                 alert("1"+this.user_eos_balance)
                 alert(data.data.balance[0].split(' ', 1)[0])
         })
@@ -545,8 +547,7 @@ async function requestId() {
         app.tpConnected = tp.isConnected();
         if (app.tpConnected) {
             tp.getWalletList("eos").then(function (data) {
-                app.tpAccount = data.wallets.eos[0]
-                app.getEosBalance();
+                app.tpAccount = data.wallets.eos[0];
             });
         } else {
             alert("请下载TokenPocket") //待完善
