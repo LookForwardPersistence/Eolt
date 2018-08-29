@@ -549,6 +549,7 @@ async function requestId() {
         if (app.tpConnected) {
             tp.getWalletList("eos").then(function (data) {
                 app.tpAccount = data.wallets.eos[0];
+                app.getEosBalance()
             });
         } else {
             alert("请下载TokenPocket") //待完善
