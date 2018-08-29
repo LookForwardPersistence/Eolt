@@ -509,6 +509,7 @@ app = new Vue({
                 alert(JSON.stringify(data))
                 var balance = data.data.balance[0].split(' ')
                 thiz.user_eos_balance = balance[0];
+                alert(thiz.user_eos_balance)
         })
         },
     },
