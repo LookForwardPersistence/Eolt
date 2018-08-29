@@ -503,12 +503,14 @@ app = new Vue({
             }
         },
         getEosBalance:function () {
+            alert(2)
             alert(this.tpAccount.name)
             tp.getEosBalance({
                 account: this.tpAccount.name,
                 contract: 'eosio.token',
                 tokenName: 'EOS'
             }).then(function(data){
+                alert(1)
                 alert(JSON.stringify(data));
                 this.user_eos_balance = data.data.balance[0].split(' ', 1)[0];
         })
