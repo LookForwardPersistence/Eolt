@@ -503,16 +503,13 @@ app = new Vue({
             }
         },
         getEosBalance:function () {
-            alert(2)
-            alert(this.tpAccount.name)
             tp.getEosBalance({
                 account: this.tpAccount.name,
                 contract: 'eosio.token',
                 symbol: 'EOS'
             }).then(function(data){
-                alert(JSON.stringify(data));
                 alert(data.data.balance)
-                this.user_eos_balance = data.data.balance[0].split(' ', 1)[0];
+                this.user_eos_balance = data.data.balance.split(' ', 1)[0];
         })
         },
     },
@@ -545,7 +542,6 @@ async function requestId() {
     } else {
         //移动端
         app.tpConnected = tp.isConnected();
-        alert(app.tpConnected)
         if (app.tpConnected) {
             tp.getWalletList("eos").then(function (data) {
                 app.tpAccount = data.wallets.eos[0]
