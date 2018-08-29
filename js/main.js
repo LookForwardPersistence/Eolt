@@ -179,6 +179,7 @@ app = new Vue({
                 limit: 10,
                 table: 'result'
             }).then((data) => {
+                alert(JSON.stringify(data))
                 var result = data.rows[0].roll_number;
             this.bet_result = result;
 
@@ -427,7 +428,6 @@ app = new Vue({
             {
                 // alert("帐号："+ JSON.stringify(this.tpAccount))
                 //移动端
-                amount = new Number(amount).toFixed(4);
                 tp.eosTokenTransfer({
                     from: this.tpAccount.name,
                     to: 'happyeosslot',
@@ -435,7 +435,8 @@ app = new Vue({
                     tokenName: 'EOS',
                     precision: 4,
                     contract: 'eosio.token',
-                    memo: 'bet'+ this.createHexRandom()
+                    memo: 'bet'+ this.createHexRandom(),
+                    address:this.tpAccount.address
                 }).then(() => {
                     play_se("se_startrolling");
                 this.running = true;
