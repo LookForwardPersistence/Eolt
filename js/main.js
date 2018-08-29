@@ -474,11 +474,7 @@ app = new Vue({
                         if(isPc()){
                             
                         }else {
-                            if(this.tpConnected) {
-                                this.tpBalance();
-                            }else {
-                                this.notification('succeeded', '请下载TokenPocket或打开');
-                            }
+                            this.getEosBalance();
                         }
 
                     }
