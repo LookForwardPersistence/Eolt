@@ -55,12 +55,12 @@ app = new Vue({
                 this.bet_input = new Number(new_bet).toFixed(4);
             }
         },
-        getEosBalance: function () {
+      /*  getEosBalance: function () {
             this.eos.getCurrencyBalance('eosio.token', this.account.name).then(x => {
                 this.user_eos_balance = x[0].split(' ', 1)[0];
         });
             this.get_current_eop();
-        },
+        },*/
         get_current_eop: async function () {
             var happyeosslot_balance = await this.eos.getCurrencyBalance('eosio.token', 'happyeosslot');
             var happyeosslot_true_balance =
@@ -507,10 +507,7 @@ app = new Vue({
             }).then(function(data){
                 alert(JSON.stringify(data))
                 var balance = data.data.balance[0].split(' ')
-                alert(data.data.balance)
                 this.user_eos_balance = balance[0];
-                alert("1"+this.user_eos_balance)
-                alert(data.data.balance[0].split(' ', 1)[0])
         })
         },
     },
