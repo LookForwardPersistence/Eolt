@@ -10,7 +10,7 @@ app = new Vue({
         requiredFields: null,
         eos: null,
         account: null,
-        user_eos_balance: 0,
+        user_eos_balance: "0",
         last_bet: null,
         bet_input: "1.0000",
         bet_result: null,
@@ -500,6 +500,7 @@ app = new Vue({
             }
         },
         getEosBalance:function () {
+            var thiz = this;
             tp.getEosBalance({
                 account: this.tpAccount.name,
                 contract: 'eosio.token',
@@ -507,7 +508,7 @@ app = new Vue({
             }).then(function(data){
                 alert(JSON.stringify(data))
                 var balance = data.data.balance[0].split(' ')
-                this.user_eos_balance = balance[0];
+                thiz.user_eos_balance = balance[0];
         })
         },
     },
