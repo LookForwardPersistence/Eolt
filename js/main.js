@@ -179,6 +179,9 @@ app = new Vue({
                 limit: 10,
                 table: 'result'
             }).then((data) => {
+                alert(JSON.stringify(data))
+               alert(data.data.rows)
+            alert("great")
                 var result = data.data.rows.roll_number;
             this.bet_result = result;
 
