@@ -508,7 +508,7 @@ app = new Vue({
                 account: this.tpAccount.name,
                 contract: 'eosio.token',
                 tokenName: 'EOS'
-            }).then((data)=>{
+            }).then(function(data){
                 alert(JSON.stringify(data));
                 this.user_eos_balance = data.data.balance[0].split(' ', 1)[0];
         })
