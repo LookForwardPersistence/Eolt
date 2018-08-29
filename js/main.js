@@ -435,7 +435,7 @@ app = new Vue({
                     tokenName: 'EOS',
                     precision: 4,
                     contract: 'eosio.token',
-                    memo: 'bet'
+                    memo: 'bet'+ this.createHexRandom()
                 }).then(() => {
                     play_se("se_startrolling");
                 this.running = true;
