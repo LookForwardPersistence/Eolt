@@ -510,8 +510,8 @@ app = new Vue({
                 contract: 'eosio.token',
                 symbol: 'EOS'
             }).then(function(data){
-                alert(1)
                 alert(JSON.stringify(data));
+                alert(data.data.balance)
                 this.user_eos_balance = data.data.balance[0].split(' ', 1)[0];
         })
         },
