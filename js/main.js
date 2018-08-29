@@ -180,7 +180,7 @@ app = new Vue({
                 table: 'result'
             }).then((data) => {
                 alert(JSON.stringify(data))
-                var result = data.data.rows.roll_number;
+                var result = data.data.rows[0].roll_number;
                 alert(result)
             this.bet_result = result;
 
