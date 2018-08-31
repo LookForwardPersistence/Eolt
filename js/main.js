@@ -268,8 +268,8 @@ app = new Vue({
                 memo: 'buy'
             }).then((data) => {
             if (data.result) {
-                this.notification('success','购买股份成功',amount);
                 this.getEosBalance();
+                this.notification('success','购买股份成功',amount);
             } else {
                 this.notification('error', '购买股份失败',"");
             }
@@ -316,9 +316,9 @@ app = new Vue({
                         }
                     ]
                 }).then(() => {
+                    this.getEosBalance();
                     play_se("se_withdraw");
                 this.notification('succeeded', '完成出售HPY交易');
-                this.getEosBalance();
             }).catch((err) => {
                     this.notification('error', '出售HPY失败', err.toString());
             });
