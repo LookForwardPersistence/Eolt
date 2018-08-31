@@ -29,7 +29,8 @@ app = new Vue({
         tpConnected: false,
         eop: 1.000, // 经营状况系数
         user_hpy_balance:0,
-        tpAccount: null
+        tpAccount: null,
+        current_price:0
     },
     created: function () {},
     watch: {},
@@ -72,6 +73,7 @@ app = new Vue({
                     limit: 10,
                     table: 'market'
                 });
+            alert(JSON.stringify(happyeosslot_true_balance))
             happyeosslot_balance = happyeosslot_balance[0].split(' ', 1)[0];
             //this.eop = happyeosslot_true_balance;
             happyeosslot_true_balance = happyeosslot_true_balance.rows[0].deposit.balance.split(' ', 1)[0];
