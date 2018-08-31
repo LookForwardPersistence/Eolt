@@ -30,7 +30,8 @@ app = new Vue({
         eop: 1.000, // 经营状况系数
         user_hpy_balance:0,
         tpAccount: null,
-        current_price:0
+        current_price:0,
+        happyeosslot_balance: null
     },
     created: function () {},
     watch: {},
@@ -82,7 +83,7 @@ app = new Vue({
             return this.eop;
         },
         get_current_eop_tp: async function(){
-            var happyeosslot_balance = await tp.getEosBalance({
+              this.happyeosslot_balance = await tp.getEosBalance({
                 account: 'happyeosslot',
                 contract: 'eosio.token',
                 symbol: 'EOS'
@@ -97,10 +98,22 @@ app = new Vue({
                 scope: "happyeosslot",
                 limit: 10,
                 table: 'market'
+            }).then(function(data){
+                alert(JSON.stringify(data.data.rows[0].supply))
+                var nums= happyeosslot_true_balance.data.rows[0].supply.split(' ')
+                alert(nums[0])
+               var happyeosslot_true_balance_in = data.data.rows[0].deposit.balance.split(' ', 1)[0];
+                this.eop = this.happyeosslot_balance / (happyeosslot_true_balance_in - 1250);
+                var num = nums[0];//happyeosslot_true_balance.data.rows[0].supply.split(' ', 1)[0];
+                alert(num)
+                this.current_price = (num/25000)*0.1*this.eop;
+                //this.eop = new Number(this.eop).toFixed(4);
+                return this.eop;
             });
+            return happyeosslot_true_balance;
             // happyeosslot_balance = happyeosslot_balance[0].split(' ', 1)[0];
             //this.eop = happyeosslot_true_balance;
-            alert(JSON.stringify(happyeosslot_true_balance.data.rows[0].supply))
+           /* alert(JSON.stringify(happyeosslot_true_balance.data.rows[0].supply))
             var nums= happyeosslot_true_balance.data.rows[0].supply.split(' ')
             alert(nums[0])
             happyeosslot_true_balance = happyeosslot_true_balance.data.rows[0].deposit.balance.split(' ', 1)[0];
@@ -109,7 +122,7 @@ app = new Vue({
             alert(num)
             this.current_price = (num/25000)*0.1*this.eop;
             //this.eop = new Number(this.eop).toFixed(4);
-            return this.eop;
+            return this.eop;*/
         },
         make_deposit: function (event) {
             play_se("se_click");
