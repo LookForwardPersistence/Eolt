@@ -100,14 +100,14 @@ app = new Vue({
             });
             // happyeosslot_balance = happyeosslot_balance[0].split(' ', 1)[0];
             //this.eop = happyeosslot_true_balance;
-
+            alert(JSON.stringify(happyeosslot_true_balance.data.rows[0].supply))
+            var nums= happyeosslot_true_balance.data.rows[0].supply.split(' ')
+            alert(nums[0])
             happyeosslot_true_balance = happyeosslot_true_balance.data.rows[0].deposit.balance.split(' ', 1)[0];
             this.eop = happyeosslot_balance / (happyeosslot_true_balance - 1250);
-            var efr = happyeosslot_balance / (happyeosslot_true_balance - 1250)
-            alert(efr)
-            var nums= happyeosslot_true_balance.data.rows[0].supply.split(' ')
             var num = nums[0];//happyeosslot_true_balance.data.rows[0].supply.split(' ', 1)[0];
-            this.current_price = (num/25000)*0.1*efr;
+            alert(num)
+            this.current_price = (num/25000)*0.1*this.eop;
             //this.eop = new Number(this.eop).toFixed(4);
             return this.eop;
         },
