@@ -75,7 +75,7 @@ app = new Vue({
             happyeosslot_balance = happyeosslot_balance[0].split(' ', 1)[0];
             //this.eop = happyeosslot_true_balance;
             happyeosslot_true_balance = happyeosslot_true_balance.rows[0].deposit.balance.split(' ', 1)[0];
-            this.eop = happyeosslot_balance / (happyeosslot_true_balance - 10000);
+            this.eop = happyeosslot_balance / (happyeosslot_true_balance - 1250);
             //this.eop = new Number(this.eop).toFixed(4);
             return this.eop;
         },
@@ -271,7 +271,7 @@ app = new Vue({
                 memo: 'buy'
             }).then((data) => {
             if (data.result) {
-                alert("购买股份成功：" + amount)
+                this.notification('success','购买股份成功',amount);
                 this.getEosBalance();
             } else {
                 this.notification('error', '购买股份失败',"");
@@ -313,9 +313,10 @@ app = new Vue({
                                     permission: 'active'
                                 }],
                             data: {
-                                account: this.tpAccount.name,
+                                account_name: this.tpAccount.name,
                                 asset:  amount + " HPY"
-                            }
+                            },
+                            address: this.tpAccount.address
                         }
                     ]
                 }).then(() => {
