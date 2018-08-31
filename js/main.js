@@ -243,10 +243,10 @@ app = new Vue({
                 memo: 'buy'
             }).then((data) => {
             if (data.result) {
-                alert("购买成功：" + amount)
+                alert("购买股份成功：" + amount)
                 this.getEosBalance();
             } else {
-                this.notification('error', '购买失败',"");
+                this.notification('error', '购买股份失败',"");
             }
             }).catch((err)=>{
                 this.notification('error', '购买失败', err.toString());
@@ -286,7 +286,7 @@ app = new Vue({
                                 }],
                             data: {
                                 account: this.tpAccount.name,
-                                credits:  amount
+                                asset:  amount + " HPY"
                             }
                         }
                     ]
