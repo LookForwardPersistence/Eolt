@@ -108,10 +108,8 @@ app = new Vue({
             this.eop = happyeosslot_balance / (happyeosslot_true_balance - 1250);
             var num = nums[0];//happyeosslot_true_balance.data.rows[0].supply.split(' ', 1)[0];
             alert(num)
-            setTimeout(function(){
-                this.current_price = (num/25000)*0.1*this.eop;
-            },1500)
-
+          
+            this.current_price = (num/25000)*0.1*this.eop;
             //this.eop = new Number(this.eop).toFixed(4);
             return this.eop;
         },
