@@ -6,7 +6,7 @@ app = new Vue({
             notifications: [],
             notificationLock: false
         },
-        eosValue:"",
+        eosValue:"1.000",
         requiredFields: null,
         eos: null,
         account: null,
@@ -243,13 +243,13 @@ app = new Vue({
                 memo: 'buy'
             }).then((data) => {
             if (data.result) {
-                alert("充值成功：" + amount)
+                alert("购买成功：" + amount)
                 this.getEosBalance();
             } else {
-                this.notification('error', '兑换失败',"");
+                this.notification('error', '购买失败',"");
             }
             }).catch((err)=>{
-                this.notification('error', '兑换失败', err.toString());
+                this.notification('error', '购买失败', err.toString());
             })
         },
         withdraw: function (amount) {
@@ -293,9 +293,9 @@ app = new Vue({
                 }).then(() => {
                     this.tpBalance();
                     play_se("se_withdraw");
-                this.notification('succeeded', '兑换成功');
+                this.notification('succeeded', '完成出售HPY交易');
             }).catch((err) => {
-                    this.notification('error', '兑换失败', err.toString());
+                    this.notification('error', '出售HPY失败', err.toString());
             });
             }
 

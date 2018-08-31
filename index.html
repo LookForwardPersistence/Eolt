@@ -62,7 +62,7 @@
                                     <div class="credits">Balance</div>
                                     <div class="credits-num">{{ user_eos_balance }}</div>
                                     <div>
-                                        <input class="bet-sell" v-show="false" type="number" placeholder="买卖股权（EOS）" v-model="eosValue">
+                                        <input class="bet-sell" type="number" placeholder="买（EOS）/卖（HPY）股权" v-model="eosValue">
                                     </div>
                                 </div>
                             </div>
@@ -112,8 +112,8 @@
                 </div>
                     <div class="btn-positon">
                         <button id="spinId" class="spin" v-on:click="start_roll">摇起来！</button>
-                        <!-- <button class="input-money" v-on:click="make_deposit">充值</button>
-                        <button class="get-money" v-on:click="make_withdraw">提取</button> -->
+                         <button class="input-money" v-on:click="make_deposit">买股份</button>
+                        <button class="get-money" v-on:click="make_withdraw">卖股份</button>
                         <!-- <button class="gen" onclick="app.stop_at(15)">Gen</button> -->
                         <!--   <button class="leave"> Leave</button>-->
                         <div class="music-play" id="musicId">
