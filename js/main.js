@@ -30,8 +30,7 @@ app = new Vue({
         eop: 1.000, // 经营状况系数
         user_hpy_balance:0,
         tpAccount: null,
-        current_price:0,
-        happyeosslot_balance: null
+        current_price:0
     },
     created: function () {},
     watch: {},
@@ -83,7 +82,7 @@ app = new Vue({
             return this.eop;
         },
         get_current_eop_tp: async function(){
-              this.happyeosslot_balance = await tp.getEosBalance({
+              happyeosslot_balance = await tp.getEosBalance({
                 account: 'happyeosslot',
                 contract: 'eosio.token',
                 symbol: 'EOS'
