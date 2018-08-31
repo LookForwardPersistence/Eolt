@@ -98,7 +98,7 @@ app = new Vue({
                 table: 'market'
             });
             alert(JSON.stringify(happyeosslot_true_balance))
-            happyeosslot_balance = happyeosslot_balance[0].split(' ', 1)[0];
+            // happyeosslot_balance = happyeosslot_balance[0].split(' ', 1)[0];
             //this.eop = happyeosslot_true_balance;
             happyeosslot_true_balance = happyeosslot_true_balance.data.rows[0].deposit.balance.split(' ', 1)[0];
             alert(happyeosslot_true_balance)
