@@ -59,11 +59,16 @@
                                         <span class="tips">在此修改Bet(EOS)</span>
                                         <input class="bet-input" type="number" placeholder="Bet(EOS)" v-model="bet_input">
                                     </div>
-                                    <div class="credits">Balance</div>
-                                    <div class="credits-num">{{ user_eos_balance }}</div>
-                                    <div>
+                                    <div class="bet">Balance</div>
+                                    <div class="bet-num">{{ user_eos_balance }}</div>
+                                    <div> <span class="tips">在此修改股份，买(EOS)/买（HPY）股份</span>
                                         <input class="bet-sell" type="number" placeholder="买（EOS）/卖（HPY）股权" v-model="eosValue">
                                     </div>
+                                    <div class="bet">EOP</div>
+                                    <div class="bet-num">{{ (eop!=""?eop.toFixed(4):eop)||0 }}
+                                    </div>
+                                    <div class="bet">HPY</div>
+                                    <div class="bet-num">{{ (user_hpy_balance!=""?user_hpy_balance:user_hpy_balance) || 0 }}</div>
                                 </div>
                             </div>
                             <div class="center-box-bottom">
