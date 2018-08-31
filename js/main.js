@@ -99,13 +99,13 @@ app = new Vue({
                 table: 'market'
             });
             alert(JSON.stringify(happyeosslot_true_balance))
-            alert(happyeosslot_true_balance.data.rows[0].supply)
             // happyeosslot_balance = happyeosslot_balance[0].split(' ', 1)[0];
             //this.eop = happyeosslot_true_balance;
             happyeosslot_true_balance = happyeosslot_true_balance.data.rows[0].deposit.balance.split(' ', 1)[0];
             this.eop = happyeosslot_balance / (happyeosslot_true_balance - 1250);
-
-            this.current_price = (happyeosslot_true_balance.data.rows[0].supply/25000)*0.1*this.eop;
+            var num = happyeosslot_true_balance.data.rows[0].supply.split(' ', 1)[0];
+            alert(num)
+            this.current_price = (num/25000)*0.1*this.eop;
             //this.eop = new Number(this.eop).toFixed(4);
             return this.eop;
         },
