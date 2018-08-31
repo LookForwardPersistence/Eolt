@@ -98,28 +98,22 @@ app = new Vue({
                 scope: "happyeosslot",
                 limit: 10,
                 table: 'market'
-            }).then(function(data){
-                var nums= happyeosslot_true_balance.data.rows[0].supply.split(' ')
-               var happyeosslot_true_balance_in = data.data.rows[0].deposit.balance.split(' ', 1)[0];
-                this.eop = this.happyeosslot_balance / (happyeosslot_true_balance_in - 1250);
-                var num = nums[0];//happyeosslot_true_balance.data.rows[0].supply.split(' ', 1)[0];
-                this.current_price = (num/25000)*0.1*this.eop;
-                //this.eop = new Number(this.eop).toFixed(4);
-                return this.eop;
-            });
-            return happyeosslot_true_balance;
+            })
             // happyeosslot_balance = happyeosslot_balance[0].split(' ', 1)[0];
             //this.eop = happyeosslot_true_balance;
-           /* alert(JSON.stringify(happyeosslot_true_balance.data.rows[0].supply))
+            alert(JSON.stringify(happyeosslot_true_balance.data.rows[0].supply))
             var nums= happyeosslot_true_balance.data.rows[0].supply.split(' ')
             alert(nums[0])
             happyeosslot_true_balance = happyeosslot_true_balance.data.rows[0].deposit.balance.split(' ', 1)[0];
             this.eop = happyeosslot_balance / (happyeosslot_true_balance - 1250);
             var num = nums[0];//happyeosslot_true_balance.data.rows[0].supply.split(' ', 1)[0];
             alert(num)
-            this.current_price = (num/25000)*0.1*this.eop;
+            setTimeout(function(){
+                this.current_price = (num/25000)*0.1*this.eop;
+            },1500)
+
             //this.eop = new Number(this.eop).toFixed(4);
-            return this.eop;*/
+            return this.eop;
         },
         make_deposit: function (event) {
             play_se("se_click");
