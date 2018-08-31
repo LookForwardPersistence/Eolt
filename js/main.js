@@ -86,7 +86,6 @@ app = new Vue({
                 symbol: 'EOS'
             }).then(function(data){
                 var balance = data.data.balance[0].split(' ')
-                alert(balance[0])
                 return balance[0];
             })
             var happyeosslot_true_balance =
@@ -97,11 +96,9 @@ app = new Vue({
                 limit: 10,
                 table: 'market'
             });
-            alert(JSON.stringify(happyeosslot_true_balance))
             // happyeosslot_balance = happyeosslot_balance[0].split(' ', 1)[0];
             //this.eop = happyeosslot_true_balance;
             happyeosslot_true_balance = happyeosslot_true_balance.data.rows[0].deposit.balance.split(' ', 1)[0];
-            alert(happyeosslot_true_balance)
             this.eop = happyeosslot_balance / (happyeosslot_true_balance - 1250);
             //this.eop = new Number(this.eop).toFixed(4);
             return this.eop;
@@ -301,7 +298,6 @@ app = new Vue({
                     });
             }else{
                //tokenpocket
-               //  alert("sell" + JSON.stringify(this.tpAccount))
                 tp.pushEosAction({
                     actions: [
                         {
@@ -313,8 +309,8 @@ app = new Vue({
                                     permission: 'active'
                                 }],
                             data: {
-                                account_name: this.tpAccount.name,
-                                asset:  amount + " HPY"
+                                account: this.tpAccount.name,
+                                hpy:  amount + " HPY"
                             },
                             address: this.tpAccount.address
                         }
