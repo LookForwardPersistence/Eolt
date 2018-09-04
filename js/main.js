@@ -596,7 +596,7 @@ async function requestId() {
         if (app.tpConnected) {
             tp.getCurrentWallet("EOS").then( (data) => {
                 alert(JSON.stringify(data))
-                app.tpAccount = data;
+                app.tpAccount = data.data;
                 app.getEosBalance()
             });
         } else {
