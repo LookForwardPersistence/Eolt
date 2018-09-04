@@ -594,8 +594,9 @@ async function requestId() {
         //移动端
         app.tpConnected = tp.isConnected();
         if (app.tpConnected) {
-            tp.getWalletList("eos").then(function (data) {
-                app.tpAccount = data.wallets.eos[0];
+            tp.getCurrentWallet("EOS").then( (data) => {
+                alert(JSON.stringify(data))
+                app.tpAccount = data;
                 app.getEosBalance()
             });
         } else {
